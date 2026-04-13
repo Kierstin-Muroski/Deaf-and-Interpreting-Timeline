@@ -1,0 +1,164 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Sign Language Interpreting & Deaf History Timeline</title>
+  <link rel="stylesheet" href="style.css" />
+  <script src="https://cdn.jsdelivr.net/npm/papaparse@5.4.1/papaparse.min.js"></script>
+</head>
+<body>
+  <header class="site-header">
+    <div class="wrap">
+      <p class="eyebrow">Editable GitHub Pages site</p>
+      <h1>Sign Language Interpreting & Deaf History Timeline</h1>
+      <p class="subtitle">A searchable, filterable timeline built from one CSV file so you can keep updating it as your research grows.</p>
+
+      <div class="header-actions">
+        <a class="button primary" href="data/timeline_master.csv" download>Download data CSV</a>
+        <a class="button" href="README.md">Read setup guide</a>
+      </div>
+    </div>
+  </header>
+
+  <main class="wrap page-grid">
+    <aside class="sidebar">
+      <section class="panel">
+        <h2>Filters</h2>
+        <label>
+          <span>Search</span>
+          <input id="searchInput" type="search" placeholder="Search events, orgs, laws, people..." />
+        </label>
+
+        <label>
+          <span>Priority</span>
+          <select id="priorityFilter">
+            <option value="">All</option>
+            <option value="High">High</option>
+            <option value="Medium">Medium</option>
+            <option value="Low">Low</option>
+          </select>
+        </label>
+
+        <label>
+          <span>Verification</span>
+          <select id="verificationFilter">
+            <option value="">All</option>
+          </select>
+        </label>
+
+        <label>
+          <span>Era</span>
+          <select id="eraFilter">
+            <option value="">All</option>
+          </select>
+        </label>
+
+        <label>
+          <span>Track</span>
+          <select id="trackFilter">
+            <option value="">All</option>
+          </select>
+        </label>
+
+        <label>
+          <span>Organization</span>
+          <select id="orgFilter">
+            <option value="">All</option>
+          </select>
+        </label>
+
+        <label>
+          <span>Geography</span>
+          <select id="geoFilter">
+            <option value="">All</option>
+          </select>
+        </label>
+
+        <label>
+          <span>Sort</span>
+          <select id="sortFilter">
+            <option value="asc">Oldest first</option>
+            <option value="desc">Newest first</option>
+          </select>
+        </label>
+
+        <div class="filter-actions">
+          <button id="clearFilters" class="button">Clear filters</button>
+        </div>
+      </section>
+
+      <section class="panel stats-panel">
+        <h2>At a glance</h2>
+        <div class="stats">
+          <div><strong id="visibleCount">0</strong><span>Visible events</span></div>
+          <div><strong id="totalCount">0</strong><span>Total events</span></div>
+          <div><strong id="yearSpan">—</strong><span>Year span</span></div>
+        </div>
+      </section>
+    </aside>
+
+    <section class="content">
+      <section class="panel intro-panel">
+        <h2>How to use this</h2>
+        <p>This site reads from <code>data/timeline_master.csv</code>. To add or change entries, edit that file and commit the change to GitHub. The site updates automatically when GitHub Pages republishes.</p>
+      </section>
+
+      <section id="activeFilters" class="active-filters"></section>
+      <section id="timeline" class="timeline"></section>
+      <section id="emptyState" class="panel empty-state hidden">
+        <h2>No results</h2>
+        <p>Try removing a filter or broadening your search.</p>
+      </section>
+    </section>
+  </main>
+
+  <template id="eventTemplate">
+    <article class="event-card">
+      <div class="event-marker"></div>
+      <div class="event-body">
+        <div class="meta-row">
+          <span class="date"></span>
+          <span class="badge era"></span>
+          <span class="badge track"></span>
+          <span class="badge org"></span>
+        </div>
+        <h3 class="title"></h3>
+        <p class="description"></p>
+        <details>
+          <summary>Open details</summary>
+          <div class="detail-grid">
+            <div>
+              <h4>Why it matters</h4>
+              <p class="why"></p>
+            </div>
+            <div>
+              <h4>Impact on interpreting</h4>
+              <p class="interpreting"></p>
+            </div>
+            <div>
+              <h4>Impact on Deaf lives</h4>
+              <p class="deafLives"></p>
+            </div>
+            <div>
+              <h4>Social justice context</h4>
+              <p class="context"></p>
+            </div>
+            <div>
+              <h4>Gap or tension</h4>
+              <p class="gap"></p>
+            </div>
+            <div>
+              <h4>Metadata</h4>
+              <ul class="meta-list"></ul>
+            </div>
+          </div>
+          <div class="sources"></div>
+        </details>
+      </div>
+    </article>
+  </template>
+
+  <script src="app.js"></script>
+</body>
+</html>
